@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# Check if an argument is provided
+if [ $# -eq 0 ]; then
+    echo "No argument provided."
+    exit 1
+fi
+
+argument0="$1"
+argument1="$2"
+
+
+
+echo "Migrate Site: $argument0"
+bench --site $argument0 migrate
+
+if [ "$argument1" == "--no-build" ]; then 
+  echo "Skipping Build..."
+else
+    echo "Build Site: $argument0"
+    bench --site $argument0 build
+fi
+
+
+echo "Clear Site Cache: $argument0"
+bench --site $argument0 clear-cache
+
+echo "Bench Restart"
+bench restart
+
+echo "Yousef's Send hes regrads"
